@@ -1,0 +1,42 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+web_modules/
+
+# Debug and log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Environment and local configurations
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.sync
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# IDE / Editor configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS metadata files
+.DS_Store
+.DS_Store?
+Thumbs.db
+
+# Output directory for build/distribution if any
+dist/
+build/

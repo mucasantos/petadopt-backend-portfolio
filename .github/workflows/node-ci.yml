@@ -1,0 +1,46 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main", "master", "nestjs-migration" ]
+  pull_request:
+    branches: [ "main", "master", "nestjs-migration" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+        mongodb-version: ['6.0']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.11.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run Swagger Autogen (Verify docs compilation)
+      run: npm run swagger-autogen
+
+    - name: Run Integration Tests
+      run: npm test
+      env:
+        NODE_ENV: test
+        DBLINK_TEST: mongodb://127.0.0.1:27017/pet-adopt-test
+        SECRET: test_jwt_signing_secret_for_ci
+        CLOUDINARY_CLOUD_NAME: mock_cloudinary_name
+        CLOUDINARY_API_KEY: mock_cloudinary_key
+        CLOUDINARY_API_SECRET: mock_cloudinary_secret

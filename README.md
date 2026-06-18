@@ -123,4 +123,3 @@ npm test
    ```
 
    The server will start running on `http://localhost:3030`. You can access the dynamic API documentation page at `http://localhost:3030/docs`.
-# petadopt-backend-portfolio
